@@ -2,12 +2,15 @@
 }
 
 .input {
+    border-color: whitesmoke;
 }
 
 .inputWrapper {
 }
 
 .superInput {
+    background-color: white;
+    outline: none;
 }
 
 .errorInput {
