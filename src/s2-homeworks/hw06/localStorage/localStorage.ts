@@ -5,7 +5,7 @@ export function saveState<T>(key: string, state: T) {
     localStorage.setItem(key, stateAsString)
 }
 
-// и вот вам функция для получения сохранённого объекта в памяти браузера:
+// функция для получения сохранённого объекта в памяти браузера:
 export function restoreState<T>(key: string, defaultState: T) {
     let state = defaultState
     const stateAsString = localStorage.getItem(key)
