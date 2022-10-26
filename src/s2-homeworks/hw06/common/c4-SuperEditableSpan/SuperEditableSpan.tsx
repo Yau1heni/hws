@@ -2,7 +2,7 @@ import React, {
     DetailedHTMLProps,
     InputHTMLAttributes,
     HTMLAttributes,
-    useState, KeyboardEvent,
+    useState,
 } from 'react'
 import s from './SuperEditableSpan.module.css'
 import SuperInputText from '../../../hw04/common/c1-SuperInputText/SuperInputText'
