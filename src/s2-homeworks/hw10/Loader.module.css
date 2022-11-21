@@ -1,3 +1,6 @@
 .loader {
-    /*свг и/или анимация*/
-}
+    background-image: url('assets/img/loading.gif');
+    width: 70px;
+    height: 70px;
+    margin: 0 20px;
+  }
