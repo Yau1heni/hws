@@ -6,7 +6,7 @@ import s from './HW7.module.css'
 
 export type ArrayType = {
     id: number
-    value: string
+    value: string | number
 }
 
 const arr = [
