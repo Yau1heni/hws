@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import s2 from '../../s1-main/App.module.css'
-import s from './HW15.module.css'
-import axios from 'axios'
-import SuperPagination from './common/c9-SuperPagination/SuperPagination'
-import {useSearchParams} from 'react-router-dom'
-import SuperSort from './common/c10-SuperSort/SuperSort'
+import React, {useEffect, useState} from 'react';
+import s2 from '../../s1-main/App.module.css';
+import s from './HW15.module.css';
+import axios from 'axios';
+import SuperPagination from './common/c9-SuperPagination/SuperPagination';
+import {useSearchParams} from 'react-router-dom';
+import SuperSort from './common/c10-SuperSort/SuperSort';
 
 /*
 * 1 - дописать SuperPagination
@@ -28,61 +28,55 @@ const getTechs = (params: any) => {
             {params}
         )
         .catch((e) => {
-            alert(e.response?.data?.errorText || e.message)
-        })
-}
+            alert(e.response?.data?.errorText || e.message);
+        });
+};
 
 const HW15 = () => {
-    const [sort, setSort] = useState('')
-    const [page, setPage] = useState(1)
-    const [count, setCount] = useState(4)
-    const [idLoading, setLoading] = useState(false)
-    const [totalCount, setTotalCount] = useState(100)
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [techs, setTechs] = useState<TechType[]>([])
+    const [sort, setSort] = useState('');
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState(4);
+    const [idLoading, setLoading] = useState(false);
+    const [totalCount, setTotalCount] = useState(100);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [techs, setTechs] = useState<TechType[]>([]);
 
     const sendQuery = (params: any) => {
-        setLoading(true)
+        setLoading(true);
         getTechs(params)
             .then((res) => {
-                // делает студент
-
                 // сохранить пришедшие данные
-
-                //
-            })
-    }
+                if (res) {
+                    setTechs(res.data.techs);
+                    setTotalCount(res.data.totalCount);
+                }
+                setLoading(false);
+            });
+    };
 
     const onChangePagination = (newPage: number, newCount: number) => {
-        // делает студент
-
-        // setPage(
-        // setCount(
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
-    }
+        setPage(newPage);
+        setCount(newCount);
+        setSearchParams({page: newPage.toString(), count: newCount.toString(), sort});
+    };
 
     const onChangeSort = (newSort: string) => {
-        // делает студент
-
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
-    }
+        setSort(newSort)
+        setPage(1)
+        setSearchParams({page: page.toString(), count: count.toString(), sort: newSort})
+    };
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
-        sendQuery({page: params.page, count: params.count})
-        setPage(+params.page || 1)
-        setCount(+params.count || 4)
-    }, [])
+        sendQuery(params)
+    }, [searchParams])
+
+    useEffect(() => {
+        const params = Object.fromEntries(searchParams);
+        sendQuery({page: params.page, count: params.count});
+        setPage(+params.page || 1);
+        setCount(+params.count || 4);
+    }, []);
 
     const mappedTechs = techs.map(t => (
         <div key={t.id} className={s.row}>
@@ -94,7 +88,7 @@ const HW15 = () => {
                 {t.developer}
             </div>
         </div>
-    ))
+    ));
 
     return (
         <div id={'hw15'}>
@@ -125,7 +119,7 @@ const HW15 = () => {
                 {mappedTechs}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HW15
+export default HW15;

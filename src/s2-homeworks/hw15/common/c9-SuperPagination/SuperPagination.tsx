@@ -1,7 +1,7 @@
-import React from 'react'
-import SuperSelect from '../../../hw07/common/c5-SuperSelect/SuperSelect'
-import {Pagination} from '@mui/material'
-import s from './SuperPagination.module.css'
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import SuperSelect from '../../../hw07/common/c5-SuperSelect/SuperSelect';
+import {Pagination} from '@mui/material';
+import s from './SuperPagination.module.css';
 
 export type SuperPaginationPropsType = {
     id?: string
@@ -13,18 +13,23 @@ export type SuperPaginationPropsType = {
 
 const SuperPagination: React.FC<SuperPaginationPropsType> = (
     {
-        page, itemsCountForPage, totalCount, onChange, id = 'hw15',
+        page, itemsCountForPage, totalCount, onChange, id = 'hw15'
     }
 ) => {
-    const lastPage = 10 // пишет студент // вычислить количество страниц
+    const lastPage = Math.ceil(totalCount / itemsCountForPage); // пишет студент // вычислить количество страниц
 
-    const onChangeCallback = (event: any, page: number) => {
-        // пишет студент
-    }
+    const [pageSize, setPageSize] = useState<number>(itemsCountForPage)
+    useEffect(() => {
+        onChange(page, pageSize)
+    }, [pageSize])
 
-    const onChangeSelect = (event: any) => {
-        // пишет студент
-    }
+    const onChangeCallback = (event: ChangeEvent<unknown>, page: number) => {
+            onChange(page, pageSize);
+    };
+
+    const onChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+        setPageSize(Number(event.currentTarget.value));
+    };
 
     return (
         <div className={s.pagination}>
@@ -50,7 +55,7 @@ const SuperPagination: React.FC<SuperPaginationPropsType> = (
                 options={[
                     {id: 4, value: 4},
                     {id: 7, value: 7},
-                    {id: 10, value: 10},
+                    {id: 10, value: 10}
                 ]}
                 onChange={onChangeSelect}
             />
@@ -59,7 +64,7 @@ const SuperPagination: React.FC<SuperPaginationPropsType> = (
                 строк в таблице
             </span>
         </div>
-    )
-}
+    );
+};
 
-export default SuperPagination
+export default SuperPagination;
